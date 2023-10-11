@@ -6,7 +6,7 @@
 
 # Nombre del archivo de entrada y salida
 input_file="outputS10_intensity.tif"
-output_file="outputS11_intensity.png"
+output_file="outputS11_intensity"
 
 # Convertir a TIF con compresión LZW y tamaño 640x480
 convert "$input_file"  -compress LZW "$output_file"
@@ -17,8 +17,8 @@ convert "$output_file" -depth 16 "$output_file"
 # Convertir a perfil de color sRGB
 convert "$output_file" -profile /usr/share/color/icc/sRGB.icc "$output_file"
 
-# Cambiar el tipo de archivo a JPEG
-mv "$output_file" "$output_file"
+# Cambiar el tipo de archivo a png
+mv "$output_file" "$output_file.png"
 
-echo "Transformación completa: $output_file.png es compatible con Roboflow."
+#echo "Transformación completa: $output_file.png es compatible con Roboflow."
 
