@@ -82,7 +82,7 @@ gdal_fillnodata.py -md 50 -b 1 -mask outputS08_DTM.tif -of GTIFF outputS08_DTM.t
 echo "Finished step 10"
 
 echo "Running step 11: Convert intensity raster from tif formato to jpg format"
-sh s11_convert_tif_to_jpg.sh
+sh s11_convert_tif_to_png.sh
 echo "Finished step 11"
 
 echo "Process completed."
