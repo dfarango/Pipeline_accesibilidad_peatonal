@@ -1,0 +1,54 @@
+//  ***************************************************************************
+//  06_NeighborClassifier_filter.json
+//  --------------------------------------
+//  Date                 : Oct 2022
+//  Copyright            : © 2022 by SusMobLab
+//  Email 1              : d.arango at udc dot es
+//  ***************************************************************************
+//  *                                                                         *
+//  *   This program is free software; you can redistribute it and/or modify  *
+//  *   it under the terms of the GNU General Public License as published by  *
+//  *   the Free Software Foundation; either version 2 of the License, or     *
+//  *   (at your option) any later version.                                   *
+//  *                                                                         *
+//  ***************************************************************************
+
+//  Estimated time to run this script over xxxxxx points: 
+//  Computer specifications: 32Gb RAM - Intel® Core™ i5-10400 CPU @ 2.90GHz × 4
+
+{
+    "pipeline":[
+
+    //  load input data. Can be override via command line via:
+    //  pdal pipeline <filter_ground_outliers.json>
+    //  --readers.las.filename=<the .las input file>
+    //  Input file must be <output2_NzFilter.las>
+    {
+    	"type":"readers.las",
+	    "filename":"input.las",
+        "tag":"all_points"
+    },
+
+
+
+    //  Filter neighborclassifier
+    {
+        "type":"filters.neighborclassifier",
+        "domain":"Classification[:2]",
+        "k":400
+    },
+
+
+
+    //  Generate output. Can be override via command line via:
+    //  --writers.las.filename=<the new file>
+    {
+    	"type":"writers.las",
+    	"filename":"outputS06_NeighborClassifier.las",
+        //  add all dimensions generated during previous processings
+    	//  otherwise only LAS dimensions are saved
+    	"extra_dims":"all"
+        
+    }
+  ]
+}

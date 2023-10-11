@@ -1,0 +1,123 @@
+//  ***************************************************************************
+//  05_normalZ_filter.json
+//  --------------------------------------
+//  Date                 : Apr 2020
+//  Copyright            : © 2020 by CartoLAB
+//  Email 1              : darango at emapic dot com
+//  Email 2              : luipir at gmail dot com
+//  ***************************************************************************
+//  *                                                                         *
+//  *   This program is free software; you can redistribute it and/or modify  *
+//  *   it under the terms of the GNU General Public License as published by  *
+//  *   the Free Software Foundation; either version 2 of the License, or     *
+//  *   (at your option) any later version.                                   *
+//  *                                                                         *
+//  ***************************************************************************
+
+//  Estimated time to run this script over xxxxxx points: 
+//  Computer specifications: 12Gb RAM - Intel® Core™ i7-4702MQ CPU @ 2.20GHz × 4
+
+{
+  "pipeline":[
+
+    //  load input data. Can be override via command line via:
+    //  pdal pipeline <filter_ground_outliers.json>
+    //  --readers.las.filename=<the .las input file>
+    //  Input file must be <output1_initial_debug.las>
+    {
+      "type":"readers.las",
+	    "filename":"input.las",
+    	"tag":"all_points"
+    },
+
+    //  Select points with classification=2 (ground)
+    //  We want apply normals filter on ground points only
+    {
+        "type":"filters.range",
+        "limits":"Classification[2:2]"
+    },
+
+    //  Calculate normals Nx, Ny, Nz using filters.normal
+    {
+        "type":"filters.normal",
+        "knn":30, //using 30 neighbors to calculate normals
+        "tag":"ground_Z_normals"
+    },
+
+    //  Get all points which NormalZ is between 0 and 0.8 to select
+    //  points of the lowest part of buildings facades and curbs
+    {
+    	"type":"filters.range",
+    	"limits":"NormalZ[0:0.8]",
+    	"inputs":[
+        	"ground_Z_normals"
+      	],
+      	"tag":"ground_Z_normal_less_than_08"
+    },
+
+    //  Get all points which NormalZ is different to 0 and 0.8 to select
+    //  all points different to points of curbs and lowest part of
+    //  buildings facades
+    {
+    	"type":"filters.range",
+    	"limits":"NormalZ![0:0.8]",
+    	"inputs":[
+        	"ground_Z_normals"
+    	],
+      	"tag":"ground_Z_normal_different_to_08"
+    },
+
+    //  Assign classification value = 1 to points with normal Z value
+    //  is lower than 0.8
+    {
+        "type":"filters.assign",
+        "inputs":[
+        	"ground_Z_normal_less_than_08"
+        ],
+        "tag":"modified",
+        "assignment":"Classification[:]=1"
+    },
+
+    //  Merge points which normal values are lower than or different
+    //  than 0.8
+    {
+    	"type":"filters.merge",
+    	"inputs":[
+    		"ground_Z_normal_different_to_08",
+    		"modified"
+    	],
+    	"tag":"ground_filtered_by_normals"
+    },
+
+    //  Select all points with classification=1 in "all_points"
+    {
+    	"type":"filters.range",
+    	"inputs":[
+    		"all_points"
+    	],
+    	"limits":"Classification[1:1]",
+    	"tag":"all_points_classification_1"
+    },
+
+    //  Merge "all points" with classification=1 and points with
+    //  classification=2 which have been filtered
+    {
+    	"type":"filters.merge",
+    	"inputs":[
+    		"all_points_classification_1",
+    		"ground_filtered_by_normals"
+    	],
+        "tag":"points_filtered"
+    },
+
+    //  Generate output. Can be override via command line via:
+    //  --writers.las.filename=<the new file>
+    {
+    	"type":"writers.las",
+    	"filename":"outputS05_NzFilter.las",
+    //  add all dimensions generated during previous processings
+    //  otherwise only LAS dimensions are saved
+    	"extra_dims":"all"
+    }
+  ]
+}

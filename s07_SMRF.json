@@ -1,0 +1,118 @@
+//  ***************************************************************************
+//  07_SMRF.json
+//  --------------------------------------
+//  Date                 : Oct 2022
+//  Copyright            : © 2022 by SusMobLab
+//  Email 1              : d.arango at udc dot es
+//  ***************************************************************************
+//  *                                                                         *
+//  *   This program is free software; you can redistribute it and/or modify  *
+//  *   it under the terms of the GNU General Public License as published by  *
+//  *   the Free Software Foundation; either version 2 of the License, or     *
+//  *   (at your option) any later version.                                   *
+//  *                                                                         *
+//  ***************************************************************************
+
+//  Estimated time to run this script over xxxxxx points: 
+//  Computer specifications: 32Gb RAM - Intel® Core™ i5-10400 CPU @ 2.90GHz × 4
+
+
+{
+  "pipeline":[
+
+    //  load input data. Can be override via command line via:
+    //  pdal pipeline <filter_ground_outliers.json>
+    //  --readers.las.filename=<the las input file>
+    //  Input file must be <output3_NeighborClassifier.las>
+    {
+        "type":"readers.las",
+        "filename":"input.las",
+        "tag":"all_points"
+    },
+
+    //  Select points with classification=2 (ground)
+    {
+        "type":"filters.range",
+        "limits":"Classification[2:2]",
+        "tag":"initial_ground"
+    },
+
+    //  APPLY FILTER SMRF
+    //  Filter ground classifies ground and not ground points using the Simple Morpholigical Filter (SMRF) approach
+    //  oulined in [Pingel, 2013]*/
+    //  We use this filter to have an final classification of ground points to work on
+    {
+        "type": "filters.smrf",
+        // "slope":1.0,
+        // "initial_distance":0.20, // for noisy flat data (sometimes happen for some little areas)
+        //"cell":1, // less than default affect gruping also some vertical components of the buildings, more than 1 create holes due depressions
+        "threshold":0.10,
+        // "window":0.15,
+        // "max_distance":6.5, // more than default 2.5 (at leaset 5.5) that seems affect slow ramps or depressions in the street
+        // "max_distance":1.7, // Dh over that is considered ground. For mobile set the hight of a car = 1.5m
+        // "exponential":true, // true or false seems does not affect
+        // "max_window_size":3.5, // width of the object to preserve, for mobile the witdh of a car = 3m. For aereal the size of a building
+        // "last":true, // true or false seems does not affect this data set that almost have last points
+        "tag":"filter_smrf"
+    },
+
+
+    //  Select points to which a SMRF filter has been applied and
+    //  with classification=1
+    {
+        "type":"filters.range",
+        "limits":"Classification[1:1]",
+        "inputs":[
+            "filter_smrf"
+        ],
+        "tag":"smrf_cla_1"
+    },
+
+    //  Select points to which a SMRF filter has been applied and
+    //  with classification=2
+    {
+        "type":"filters.range",
+        "limits":"Classification[2:2]",
+        "inputs":[
+            "filter_smrf"
+        ],
+        "tag":"smrf_cla_2"
+    },
+
+    //  Select points with classification=1 (not ground) in all_points
+    {
+        "type":"filters.range",
+        "limits":"Classification[1:1]",
+        "inputs":[
+            "all_points"
+        ],
+        "tag":"initial_not_ground"
+    },
+
+    //  Merge all points filtered
+    {
+        "type":"filters.merge",
+        "inputs":[
+            "initial_not_ground",
+            "smrf_cla_1",
+            "smrf_cla_2"
+        ],
+        "tag":"points_filtered"
+    },
+
+    //  Calc HeightAboveGround (HAG)
+    //{
+    //    "type":"filters.hag_delaunay"
+    //},
+
+    //  Generate output. Can be override via command line via:
+    //  --writers.las.filename=<the new file>
+    {
+      "type":"writers.las",
+      "filename":"outputS07_SMRF.las",
+      //  add all dimensions generated during previous processings
+      //  otherwise only LAS dimensions are saved
+      "extra_dims":"all"
+    }
+  ]
+}

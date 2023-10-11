@@ -1,0 +1,58 @@
+//  ***************************************************************************
+//  08_MDT_raster.json
+//  --------------------------------------
+//  Date                 : APR 2020
+//  Copyright            : © 2020 by CartoLAB
+//  Email 1              : d.arango at udc dot es
+//  Email 2              : luipir at gmail dot com  
+//  ***************************************************************************
+//  *                                                                         *
+//  *   This program is free software; you can redistribute it and/or modify  *
+//  *   it under the terms of the GNU General Public License as published by  *
+//  *   the Free Software Foundation; either version 2 of the License, or     *
+//  *   (at your option) any later version.                                   *
+//  *                                                                         *
+//  ***************************************************************************
+
+//  Estimated time to run this script over xxxxxx points: 
+//  Computer specifications: 12Gb RAM - Intel® Core™ i7-4702MQ CPU @ 2.20GHz × 4
+
+{
+  "pipeline":[
+
+    //  load input data. Can be override via command line via:
+    //  pdal pipeline <filter_ground_outliers.json>
+    //  --readers.las.filename=<the las input file>
+    //  Input file must be <output4_SRMF_HAG.las>
+
+    {
+        "type":"readers.las",
+        "filename":"input.las"
+    },
+
+    //  Select points filtered by classification and kdistance using 
+    //  filter.range in dimensions "Classification" and "kdistance"
+    //  Only pints with Classification=2 and KDistance[0:1] are wanted
+    {
+        "type":"filters.range",
+        "limits":"Classification[2:2]" 
+    },
+
+    //  generate output. Can be override via command line via:
+    //  --writers.gdal.filename=<the new file>
+    //  You have to adapt bounds to your Point Cloud (info via command line via: pdal info <the output4_SMRF_HAG.las>)
+    //  Also you can modify the resolution of the raster
+    {
+        "type":"writers.gdal", 
+        "resolution":0.1, //this resolution prevents the generation of gaps
+        "dimension":"Z",
+        "output_type":"mean",
+        "nodata":0,
+        //"bounds":"([546986.98,547540.73],[4801585.26,4801860.95])",//format ([minX, maxX],[minY,maxY]).
+
+        //  "bounds":"([547284.87500000,547504.68750000],[4801352.50000000,4801507.50000000])",//format ([minX, maxX],[minY,maxY]).
+        "filename":"outputS08_DTM.tif"
+    }
+  ]
+}
+

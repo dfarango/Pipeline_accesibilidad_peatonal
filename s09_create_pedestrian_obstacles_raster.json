@@ -1,0 +1,86 @@
+//  ***************************************************************************
+//  create_pedestrian_obstacles_raster.json
+//  --------------------------------------
+//  Date                 : nov 2022
+//  Copyright            : © 2022 by SusMobLab
+//  Email                : darango at emapic dot com
+//  Email 2              : luipir at gmail dot com  
+//  ***************************************************************************
+//  *                                                                         *
+//  *   This program is free software; you can redistribute it and/or modify  *
+//  *   it under the terms of the GNU General Public License as published by  *
+//  *   the Free Software Foundation; either version 2 of the License, or     *
+//  *   (at your option) any later version.                                   *
+//  *                                                                         *
+//  * *************************************************************************
+//  *                                                                         *
+//  *   In this script you can select all HAG points which are obstacles      *
+//  *   for pedestrians                                                       *
+//  *                                                                         *
+//  ***************************************************************************
+
+    //  Estimated time to run this script: 0min 30sec
+    //  PC: 4Gb RAM - Intel® Core™2 Quad CPU Q8200 @ 2.33GHz × 4
+{
+  "pipeline":[
+
+  	//  load input data. It must be a point cloud which has a field called
+  	//  Classification with values 1=not ground points and 2=ground points.
+  	//  Can be override via command line via: pdal pipeline
+  	//  <create_obstacles_raster.json> 
+    //  --readers.las.filename=<the input las file>
+    //  input las file must be out_3_c.las
+  
+    {
+        "type":"readers.las",
+        "filename":"input.las"
+    },
+   
+    //  Calculate HeightAboveGround Delaunay (HAG) 
+    {
+        "type":"filters.hag_nn"
+    },
+    
+    //  Select points with HAG Delaunay value (not ground) between 25cm and 220cm 
+    {
+        "type":"filters.range",
+        "limits":"HeightAboveGround[0.25:2.20]" 
+    },
+
+    //  Select points with Classification=1 (not ground)
+    {
+        "type":"filters.range",
+        "limits":"Classification[1:1]"
+    },
+
+
+    
+    //  If you want to write the result in LAS format instead 
+    //  of in GTiff format, you must run this stage instead of 
+    //  the last one "writers.gdal"
+    //  Generate output. Can be override via command line via:
+    //  --writers.las.filename=<the new file>
+    //  Generate output. Can be override via command line via:
+    //  --writers.las.filename=<the new file>
+    //  {
+    //    "type":"writers.las",
+    //    "filename":"out_9_pedestrian_obstacles.las",
+    //    add all dimensions generated during previous processings
+    //    otherwise only LAS dimensions are saved
+    //    "extra_dims":"all"
+    //  }
+    
+    
+    //  generate output. Can be override via command line via:
+    //  --writers.gdal.filename=<the new file>
+    {
+        "type":"writers.gdal", 
+        "resolution":0.10, //this resolution prevents the generation of gaps
+        "dimension":"HeightAboveGround",
+        "output_type":"mean",
+        //  "nodata":0,
+        //  "bounds":"([547284.87500000,547504.68750000],[4801352.50000000,4801507.50000000])",//format ([minX, maxX],[minY,maxY]).
+        "filename":"outputS09_PedestrianObstacles.tif"
+    }
+  ]
+}
