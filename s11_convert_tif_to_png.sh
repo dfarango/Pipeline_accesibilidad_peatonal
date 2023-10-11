@@ -20,5 +20,5 @@ convert "$output_file" -profile /usr/share/color/icc/sRGB.icc "$output_file"
 # Cambiar el tipo de archivo a JPEG
 mv "$output_file" "$output_file"
 
-echo "Transformación completa: $output_file.jpg es compatible con Roboflow."
+echo "Transformación completa: $output_file.png es compatible con Roboflow."
 
