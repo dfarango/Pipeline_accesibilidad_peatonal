@@ -1,24 +1,40 @@
-# NOTA. Para ejecutar este script es necesario tener instalado previamente imageMagik
-# url: https://imagemagick.org/index.php
+#########################################################################
+# s11_convert_tif_to_png.sh
+# -------------------------------------------------------------------
+# Date                 : Oct 2023
+# Copyright            : © 2023 by darango
+# Email                : davidfernandezarango at hotmail dot com
+#########################################################################
+#
+# This program is free software; you can redistribute it and/or modify  
+# it under the terms of the GNU General Public License as published by  
+# the Free Software Foundation; either version 2 of the License, or     
+# (at your option) any later version.                                   
+#                                                                       
+# Este script permite convertir un raster en formato .tif en otro 
+# con formato png, mucho más ligero y capaz de trabajarse en otros 
+# softwares de detección de imágenes. El objetivo de este script es 
+# poder generar imágenes en png para poder usarse en Roboflow o  
+# cualquier otro software de etiquetado de imágenes para la posterior 
+# detección de objetos mediante modelos como YOLO   
+# 
+# Al generarase la imagen png también se genera un archivo en formato
+# .wld (world file) que se utiliza para georreferenciar imágenes y 
+# contiene información sobre la ubicación y escala de la imagen en 
+# coordenadas geográficas. Este archivo debe mantenerse en la misma 
+# ubicación que el archivo png para poder geolocalizar la información
+# correctamente (por ejemplo en QGIS)                                                                        
+#########################################################################
+
+
 
 #!/bin/bash
 
-
 # Nombre del archivo de entrada y salida
 input_file="outputS10_intensity.tif"
-output_file="outputS11_intensity"
+output_file="outputS11_intensity.png"
 
-# Convertir a TIF con compresión LZW y tamaño 640x480
-convert "$input_file"  -compress LZW "$output_file"
+# Utilizar gdal_translate para convertir a escala de grises
+gdal_translate -of PNG -ot Byte -scale -co WORLDFILE=YES "$input_file" "$output_file"
 
-# Verificar y ajustar la profundidad de bits a 8 bits
-convert "$output_file" -depth 16 "$output_file"
-
-# Convertir a perfil de color sRGB
-convert "$output_file" -profile /usr/share/color/icc/sRGB.icc "$output_file"
-
-# Cambiar el tipo de archivo a png
-mv "$output_file" "$output_file.png"
-
-#echo "Transformación completa: $output_file.png es compatible con Roboflow."
-
+echo "Transformación completa: $output_file es una imagen en escala de grises en formato PNG."

@@ -1,3 +1,31 @@
+#########################################################################
+# s12_georeferencing_png_pixel_to_utm.sh
+# -------------------------------------------------------------------
+# Date                 : Oct 2023
+# Copyright            : © 2023 by darango
+# Email                : davidfernandezarango at hotmail dot com
+#########################################################################
+#
+# This program is free software; you can redistribute it and/or modify  
+# it under the terms of the GNU General Public License as published by  
+# the Free Software Foundation; either version 2 of the License, or     
+# (at your option) any later version.                                   
+#                                                                       
+# Este script permite georreferenciar una imagen jpg sin Sistema de     
+# Referencia de Coordenadas (SRC) empleando como datos de partida las   
+# coordenadas pixel de las esquinas de la imagen jpg que se quiere      
+# georreferenciar y las correspondientes coordenadas de la misma imagen 
+# en formato tif, que se generó previamente en el script anterior. Las  
+# esquinas de la imagen son la esquina superior izquierda  y la         
+# inferior derecha.                                                     
+# Este script está pensado para georreferenciar las imágenes jpg que    
+# salen de hacer la detección de pasos de peatones mediante YOLOv8. De  
+# esta manera se pueden geolocalizar los pasos de peatones detectados   
+#                                                                       
+#########################################################################
+
+
+
 #!/bin/bash
 
 # Ruta a la imagen de entrada (imagen sin georreferenciar)
