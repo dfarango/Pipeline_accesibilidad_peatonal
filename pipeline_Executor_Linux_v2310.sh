@@ -1,22 +1,22 @@
-#!/bin/bash
-
-# ***************************************************************************************
-# 2023_run_DTM_pdal_pipeline.sh
+# **************************************************************************************
+# pipeline_Executor_Linux_v2310.sh
 # --------------------------------------
-# Date                 : Oct 2023
+# Date                 : oct 2023
 # Copyright            : © 2023 by darango
-# Email 1              : d.arango at udc dot es
-# *****************************************************************************************
-# *                                                                                          *
-# *   This script runs the following pipeline to classify the LiDAR                             *
-# *	  Point Cloud and get a Digital Terrain Model and other      
-# *      geographic products.						                	*
-# *   																		
-# *   To run this script you must have the initial data (S1.las and S2.las), the .json 		*
-# *   script files of the pipeline and this bash .sh file in the same folder.                   *
-# *   												*
-# ***************************************************************************
+# Email 1              : davidfernandezarango at hotmail dot com
+# **************************************************************************************
+#                                                                                      *
+#   This script runs the following pipeline to classify the LiDAR Poing Cloud *.las    *
+#	and get a Digital Terrain Model and other geographic products.						                	                   *
+#   																		           *
+#   To run this script you must have the initial data (S1.las and S2.las), the .json   *
+#   script files of the pipeline and this bash .sh file in the same folder.            *
+#  												                                       *
+# **************************************************************************************
 
+
+
+#!/bin/bash
 
 '''
 Running script for generate a DTM surface.

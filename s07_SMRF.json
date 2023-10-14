@@ -1,9 +1,9 @@
 //  ***************************************************************************
-//  07_SMRF.json
+//  s07_SMRF.json
 //  --------------------------------------
-//  Date                 : Oct 2022
+//  Date                 : oct 2022
 //  Copyright            : © 2022 by SusMobLab
-//  Email 1              : d.arango at udc dot es
+//  Email 1              : davidfernandezarango at hotmail dot com
 //  ***************************************************************************
 //  *                                                                         *
 //  *   This program is free software; you can redistribute it and/or modify  *
@@ -13,8 +13,7 @@
 //  *                                                                         *
 //  ***************************************************************************
 
-//  Estimated time to run this script over xxxxxx points: 
-//  Computer specifications: 32Gb RAM - Intel® Core™ i5-10400 CPU @ 2.90GHz × 4
+ 
 
 
 {

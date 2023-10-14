@@ -1,7 +1,7 @@
 #########################################################################
 # s12_georeferencing_png_pixel_to_utm.sh
 # -------------------------------------------------------------------
-# Date                 : Oct 2023
+# Date                 : oct 2023
 # Copyright            : © 2023 by darango
 # Email                : davidfernandezarango at hotmail dot com
 #########################################################################
@@ -31,19 +31,19 @@
 # Ruta a la imagen de entrada (imagen sin georreferenciar)
 input_image="./outputS11_intensity.png"
 
-# Coordenadas pixel de la esquina superior izquierda (x, y)
+# Coordenadas pixel de la esquina superior izquierda (x, y) (esquina upper-left)
 pixel_ul_x=0
 pixel_ul_y=0
 
-# Coordenadas pixel de la esquina inferior derecha (x, y)
+# Coordenadas pixel de la esquina inferior derecha (x, y) (esquina lower-right)
 pixel_lr_x=839  # Reemplaza con el valor en píxeles de la esquina inferior derecha
 pixel_lr_y=-367  # Reemplaza con el valor en píxeles de la esquina inferior derecha
 
-# Coordenadas UTM de la esquina superior izquierda (este, norte)
+# Coordenadas UTM de la esquina superior izquierda (este, norte) (esquina upper-left)
 utm_ul_x=547008.69  # Reemplaza con el valor UTM este de la esquina superior izquierda
 utm_ul_y=4801680.15  # Reemplaza con el valor UTM norte de la esquina superior izquierda
 
-# Coordenadas UTM de la esquina inferior derecha (este, norte)
+# Coordenadas UTM de la esquina inferior derecha (este, norte) (esquina lower-left)
 utm_lr_x=547092.59  # Reemplaza con el valor UTM este de la esquina inferior derecha
 utm_lr_y=4801643.43  # Reemplaza con el valor UTM norte de la esquina inferior derecha
 

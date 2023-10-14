@@ -1,20 +1,22 @@
-//  ***************************************************************************
-//  08_MDT_raster.json
+//  ***********************************************************************
+//  s08b_Create_DSM_raster.json
 //  --------------------------------------
-//  Date                 : DEC 2022
+//  Date                 : dec 2022
 //  Copyright            : © 2020 by SusMobLab
-//  Email 1              : d.arango at udc dot es 
-//  ***************************************************************************
-//  *                                                                         *
-//  *   This program is free software; you can redistribute it and/or modify  *
-//  *   it under the terms of the GNU General Public License as published by  *
-//  *   the Free Software Foundation; either version 2 of the License, or     *
-//  *   (at your option) any later version.                                   *
-//  *                                                                         *
-//  ***************************************************************************
+//  Email 1              : davidfernandezarango at hotmail dot com
+//  ***********************************************************************
+//                                                                        *
+//  This program is free software; you can redistribute it and/or modify  *
+//  it under the terms of the GNU General Public License as published by  *
+//  the Free Software Foundation; either version 2 of the License, or     *
+//  (at your option) any later version.                                   *
+//                                                                        *
+//  Este script selecciona de la nube de puntos *.las todos los puntos    *
+//  con valor de clasificacion=1 (catalogados como no suelo) y generar un *
+//  raster con ellos 
+//*************************************************************************
 
-//  Estimated time to run this script over xxxxxx points: 
-//  Computer specifications: 12Gb RAM - Intel® Core™ i7-4702MQ CPU @ 2.20GHz × 4
+
 
 {
   "pipeline":[

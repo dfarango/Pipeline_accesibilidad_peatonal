@@ -1,9 +1,9 @@
 //  ***************************************************************************
-//  01_merge_two_las_data_files.json
+//  s01_merge_four_las_data_files.json
 //  --------------------------------------
-//  Date                 : Apr 2020
+//  Date                 : apr 2020
 //  Copyright            : © 2020 by CartoLAB
-//  Email 1              : darango at emapic dot com
+//  Email 1              : davidfernandezarango at hotmail dot com
 //  Email 2              : luipir at gmail dot com
 //  ***************************************************************************
 //  *                                                                         *
@@ -18,8 +18,6 @@
 //  *                                                                         *
 //  ***************************************************************************
 
-//  Estimated time to run this script over xxxxxx points: 
-//  Computer specifications: 12Gb RAM - Intel® Core™ i7-4702MQ CPU @ 2.20GHz × 4
 
 {
   "pipeline":[

@@ -1,20 +1,21 @@
-//  ***************************************************************************
-//  10_intensity_raster.json
-//  --------------------------------------
-//  Date                 : OCT 2023
-//  Copyright            : © 2023 by darango
-//  Email 1              : d.arango at udc dot es
-//  ***************************************************************************
-//  *                                                                         *
-//  *   This program is free software; you can redistribute it and/or modify  *
-//  *   it under the terms of the GNU General Public License as published by  *
-//  *   the Free Software Foundation; either version 2 of the License, or     *
-//  *   (at your option) any later version.                                   *
-//  *                                                                         *
-//  ***************************************************************************
+//#########################################################################
+//# s10_Create_intensity_raster.json
+//# -------------------------------------------------------------------
+//# Date                 : Oct 2023
+//# Copyright            : © 2023 by darango
+//# Email                : davidfernandezarango at hotmail dot com
+//#########################################################################
+//#
+//# This program is free software; you can redistribute it and/or modify  
+//# it under the terms of the GNU General Public License as published by  
+//# the Free Software Foundation; either version 2 of the License, or     
+//# (at your option) any later version.                                   
+//#                                                                       
+//# Este script permite generar un raster en formato .tif a partir de  
+//# valores de intensidad procedentes de la nube de puntos *.las 
+//                                               
+//#########################################################################
 
-//  Estimated time to run this script over xxxxxx points: 
-//  Computer specifications: 12Gb RAM - Intel® Core™ i7-4702MQ CPU @ 2.20GHz × 4
 
 {
   "pipeline":[
@@ -35,7 +36,7 @@
     //  Only pints with Classification=2 and KDistance[0:1] are wanted
     {
       "type":"filters.range",
-      "limits":"Intensity[:]" 
+      "limits":"Intensity[:]" //selecciona todos los puntos, independientemente de su valor de intensidad, para generar el raster
     },
 
     //  generate output. Can be override via command line via:

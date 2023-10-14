@@ -1,9 +1,9 @@
 // **************************************************************************
-//  04_initial_debug_and_coarse_classification.json
+//  s04_initial_debug_and_coarse_classification.json
 //  ---------------------------------------
-//  Date                 : Apr 2020
+//  Date                 : apr 2020
 //  Copyright            : © 2020 by David Fernández Arango
-//  Email                : darango at emapic dot com
+//  Email                : davidfernandezarango at hotmail dot com
 //  Email                : luipir at gmail dot com
 //  ***************************************************************************
 //  *                                                                         *
@@ -17,8 +17,7 @@
 //  *                                                                         *  
 //  **************************************************************************
 
-//  Estimated time to run this script over xxxxxx points: 
-//  Computer specifications: 12Gb RAM - Intel® Core™ i7-4702MQ CPU @ 2.20GHz × 4
+ 
 
 {
   "pipeline":[

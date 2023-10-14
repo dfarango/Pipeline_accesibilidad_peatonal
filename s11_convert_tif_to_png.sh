@@ -1,7 +1,7 @@
 #########################################################################
 # s11_convert_tif_to_png.sh
 # -------------------------------------------------------------------
-# Date                 : Oct 2023
+# Date                 : oct 2023
 # Copyright            : © 2023 by darango
 # Email                : davidfernandezarango at hotmail dot com
 #########################################################################
@@ -30,11 +30,11 @@
 
 #!/bin/bash
 
-# Nombre del archivo de entrada y salida
+# Nombre de los archivos de entrada y salida
 input_file="outputS10_intensity.tif"
 output_file="outputS11_intensity.png"
 
 # Utilizar gdal_translate para convertir a escala de grises
-gdal_translate -of PNG -ot Byte -scale -co WORLDFILE=YES "$input_file" "$output_file"
+gdal_translate -of PNG -ot Byte -scale -co WORLDFILE=YES "$input_file" "$output_file" #WORLDFILE=YES crea un archivo con la información sobre la ubicación y escala de la imagen en coordenadas geográficas
 
 echo "Transformación completa: $output_file es una imagen en escala de grises en formato PNG."
