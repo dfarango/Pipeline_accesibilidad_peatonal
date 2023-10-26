@@ -81,7 +81,7 @@ echo "Running step 10: Creating interpolated DTM raster..."
 gdal_fillnodata.py -md 50 -b 1 -mask outputS08_DTM.tif -of GTIFF outputS08_DTM.tif outputS08_interpolated_DTM.tif
 echo "Finished step 10"
 
-echo "Running step 11: Convert intensity raster from tif formato to jpg format"
+echo "Running step 11: Convert intensity raster from tif formato to png format"
 sh s11_convert_tif_to_png.sh
 echo "Finished step 11"
 

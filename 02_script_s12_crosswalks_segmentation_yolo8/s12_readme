@@ -1,0 +1,7 @@
+s12_metodo
+
+El objetivo de este proceso es identificar y geolocalizar los pasos de peatones que aparecen en todas las escenas, a partir de los rasters de intensidad obtenidos como output en s11 ('outputS11_intensity.png'). Para ello, se ha realizado un etiquetado de los pasos de peatones empleando Roboflow y se ha entrenado un modelo segmentación de YOLOv8 mediante un cuaderno de kaggle. Tanto el dataset creado en roboflow como el cuaderno de kaggle son públicos (poner links).
+
+Una vez segmentados todos los pasos de peatones, se hace una reclasificación a valores de 0 y 1, siendo 1 los pixeles pertenecientes a paso de peatones (tanto de tipo A como de tipo B) y 0 el resto de pixeles de la imagen. De esta manera, queda preparada la superficie de pasos de peatones para un futuro análisis de movilidad peatonal. El script que realiza este proceso es 'S12_indice_reclass.py'. Este script genera un índice normalizado con las bandas R y G (I=(R-G)/(R+G)) y posteriormente reclasifica los valores distintos a 0 a un valor '1'
+
+
