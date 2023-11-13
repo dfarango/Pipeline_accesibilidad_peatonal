@@ -11,8 +11,8 @@
 //# the Free Software Foundation; either version 2 of the License, or     
 //# (at your option) any later version.                                   
 //#                                                                       
-//# Este script permite generar un raster en formato .tif a partir de  
-//# valores de intensidad procedentes de la nube de puntos *.las 
+//# This script allows you to generate a raster in .tif format from
+//# intensity values ​​from the point cloud *.las
 //                                               
 //#########################################################################
 
